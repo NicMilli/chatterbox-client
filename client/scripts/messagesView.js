@@ -5,22 +5,51 @@ var MessagesView = {
 
   $chats: $('#chats'),
 
-  initialize: function() {
+  initialize: function(data) {
     // TODO: Perform any work which needs to be done
     // when this view loads.
+    //add friend when clicked
+    MessagesView.$chats.on('click', '.username', function(event) {
+      MessagesView.handleClick(event.currentTarget);
+    });
+
   },
 
   render: function() {
     // TODO: Render _all_ the messages.
+    MessagesView.$chats.empty();
+    if (Rooms._selectedRoom === 'All rooms') {
+      Messages._data.forEach((message) => {
+        if (message.username in Friends._data) {
+          this.renderMessage(message, 'bestFriend');
+        } else {
+          this.renderMessage(message);
+        }
+      });
+    } else {
+      //Need to await fetching data?
+      Parse.readRoom(Rooms._selectedRoom, function(roomData) {
+        Messages.updateToRoom(roomData);
+      });
+      Messages._data.forEach((message) => {
+        if (message.username in Friends._data) {
+          this.renderMessage(message, 'bestFriend');
+        } else {
+          this.renderMessage(message);
+        }
+      });
+    }
   },
 
-  renderMessage: function(message) {
-    // TODO: Render a single message.
+  renderMessage: function(message, extraClass = '') {
+    MessagesView.$chats.append(MessageView.render({username: message.username, message: message.text, className: extraClass}));
   },
+
 
   handleClick: function(event) {
-    // TODO: handle a user clicking on a message
-    // (this should add the sender to the user's friend list).
+    Friends.toggleStatus($(event).text());
+    //MessagesView.initialize();
+    MessagesView.render();
   }
 
 };

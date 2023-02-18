@@ -4,10 +4,23 @@
 
 var Rooms = {
 
-  // TODO: Define how you want to store the list of rooms
-  _data: null,
+  _data: new Set(),
+  _selectedRoom: 'All rooms',
 
-  // TODO: Define methods which allow you to add rooms, update the list,
-  // mark a room as selected, etc.
+  update: function() {
+    Messages._data.forEach((object) => {
+      Rooms._data.add(object.roomname);
+    });
+    RoomsView.render();
+  },
+
+  add: function(roomName) {
+    if (roomName === null || roomName.length < 3) {
+      alert('Please make sure your roomname has 3 or more characters');
+    } else {
+      Parse.create({roomname: roomName, text: 'Look at my cool new room', username: App.username});
+      App.fetch();
+    }
+  },
 
 };

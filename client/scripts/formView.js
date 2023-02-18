@@ -13,10 +13,19 @@ var FormView = {
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
+    if (Rooms._selectedRoom === undefined || Rooms._selectedRoom === 'All rooms'
+    || Rooms._selectedRoom === null) {
+      alert('Please select a room to post to, or create your own!');
+    } else {
+      if ($('#message').val().length === 0) {
+        return alert('Please type a message first!');
+      }
+      Parse.create({roomname: Rooms._selectedRoom, text: $('#message').val(), username: App.username});
+    }
+    $('#message').val('');
 
-    // TODO: Currently, this is all handleSubmit does.
-    // Make this function actually send a message to the Parse API.
-  
+    App.fetch();
+
     console.log('click!');
   },
 

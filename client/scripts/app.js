@@ -14,23 +14,29 @@ var App = {
     FormView.initialize();
     RoomsView.initialize();
     MessagesView.initialize();
+    RefreshView.initialise();
 
     // Fetch initial batch of messages
     App.startSpinner();
     App.fetch(App.stopSpinner);
+    // setInterval(function() {
+    //   App.fetch();
+    // }, 10000);
 
-    // TODO: Make sure the app loads data from the API
-    // continually, instead of just once at the start.
   },
 
   fetch: function(callback = ()=>{}) {
+    console.log(Friends._data);
+    $('#chats').empty();
     Parse.readAll((data) => {
       // examine the response from the server request:
       console.log(data);
+      Messages.update(data);
+      Rooms.update();
 
-      // TODO: Use the data to update Messages and Rooms
-      // and re-render the corresponding views.
+      callback();
     });
+
   },
 
   startSpinner: function() {

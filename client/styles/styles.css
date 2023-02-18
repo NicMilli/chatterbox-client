@@ -67,6 +67,7 @@ form input[type=text] {
 
 .chat .username {
     font-weight: 800;
+    cursor: pointer;
 }
 
 .chat:hover {
@@ -88,3 +89,11 @@ form input[type=text] {
     background-color: #0090da;
 }
 
+.refreshButton {
+    cursor: pointer;
+}
+
+.bestFriend {
+    font-weight: bold;
+    color: red;
+}
