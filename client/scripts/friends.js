@@ -11,9 +11,13 @@ var Friends = {
   // and check the friendship status of other users.
   toggleStatus: function(username) {
     if (username in Friends._data) {
+      localStorage.setItem(`ChatterBox-${username}`, false);
       delete Friends._data[username];
     } else {
-      Friends._data[username] = true;
+      if (username !== App.username) {
+        localStorage.setItem(`ChatterBox-${username}`, true);
+        Friends._data[username] = true;
+      }
     }
   }
 

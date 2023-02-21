@@ -1,3 +1,13 @@
+:root {
+    --gradient: linear-gradient(
+      140deg,
+      #ff6961,
+      #fac898,
+      #a7c7e7,
+      #779ecb,
+    );
+}
+
 body {
     background: #eee;
     text-align: center;
@@ -5,14 +15,46 @@ body {
     font-family: arial, sans-serif;
 }
 
-#main, #chats {
+#main {
     width: 500px;
     margin: auto;
     text-align: left;
-    background: white;
+    overflow: hidden;
+    background: linear-gradient(140deg, #ff6961, #fac898, #a7c7e7, #779ecb);
+    background-size: 100%;
     padding: 50px 60px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
+}
+
+.tabButton {
+    margin: 2px 5px;
+    border-radius: 0;
+    font-weight: 600;
+    height: auto;
+    width: fit-content;
+    border: 1px solid black;
+    min-height: 20px;
+    min-width: 30px;
+}
+
+.tabButton:active {
+    background: #779ecb;
+}
+
+#chats {
+    width: 500px;
+    margin: auto;
+    text-align: left;
+    overflow: hidden;
+    background: #ffffff;
+    background-size: 100%;
+    padding: 30px 60px;
+    border: solid #ddd;
+    border-width: 0 1px 1px 1px;
+    display: flex column;
+    align-items: center;
+    justify-content: center;
 }
 
 #main h1 {
@@ -46,6 +88,17 @@ body {
     line-height: 13px;
 }
 
+#tabs {
+    text-align: left;
+    margin: auto;
+    width: 500px;
+    border: solid black;
+    background: #ffffff;
+    padding: 10px 60px;
+    border: solid #ddd;
+    border-width: 0 1px 1px 1px;
+}
+
 form {
     padding: 20px;
     padding-left: 0;
@@ -59,10 +112,22 @@ form input[type=text] {
     padding: 5px;
 }
 
+.submit, button {
+    cursor: pointer;
+    background: #eee;
+    border-radius: 1rem;
+    color: #000000;
+    font-weight: 600;
+    width: fit-content;
+    border: 1px solid black;
+  }
+
 .chat {
     padding: 5px;
     margin-bottom: 5px;
-    background-color: #eee;
+    background-color: #e4e3e3;
+    border-radius: 1rem;
+    border: 1px solid black;
 }
 
 .chat .username {
@@ -85,15 +150,37 @@ form input[type=text] {
 }
 
 .friend {
-    color: #fff;
-    background-color: #0090da;
+    color: #353434;
+    font-weight: 900;
+    background-color: #779ecb;
+}
+
+.friend:hover {
+    color: #111111;
+    background-color: #8eb5e2 !important;
 }
 
 .refreshButton {
     cursor: pointer;
 }
 
-.bestFriend {
-    font-weight: bold;
-    color: red;
+.messageSpinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fishy 1.5s linear infinite;
+    color: #779ecb;
+}
+
+.messageSpinner img {
+    padding: 10px;
+}
+
+@keyframes fishy {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
 }

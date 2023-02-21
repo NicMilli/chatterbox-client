@@ -34,10 +34,15 @@ var Parse = {
   },
 
   readRoom: function(room, successCB, errorCB = null) {
+    if (room === 'All rooms') {
+      dataObj = { order: '-createdAt' };
+    } else {
+      dataObj = { order: '-createdAt', roomname: room };
+    }
     $.ajax({
       url: Parse.server,
       type: 'GET',
-      data: { roomname: room },
+      data: dataObj,
       contentType: 'application/json',
       success: successCB,
       error: errorCB || function(error) {

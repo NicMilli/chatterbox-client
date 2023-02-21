@@ -6,18 +6,52 @@ var Messages = {
 
   // TODO: Define how you want to store your messages.
   _data: [],
+  _roomData: {},
+  _tabs: {},
 
-  // TODO: Define methods which allow you to retrieve from,
-  // add to, and generally interact with the messages.
   update: function(data) {
     Messages._data = data;
 
+    MessagesView.render(data);
+  },
+
+  updateToRoom: function(room) {
+    App.startMessageSpinner();
+    if (!room) {
+      room = Rooms._selectedRoom;
+    } else {
+      Rooms._selectedRoom = room;
+    }
+    Parse.readRoom(Rooms._selectedRoom, (roomData) => {
+      Messages._roomData[Rooms._selectedRoomroom] = roomData;
+      MessagesView.render(roomData);
+      App.stopMessageSpinner();
+    });
+  },
+
+  newTab: function(roomName) {
+    if (roomName in Messages._tabs) {
+      Messages.updateToRoom(roomName);
+    } else {
+      Messages._tabs[roomName] = Object.keys(Messages._tabs).length - 1;
+      $('#tabs').prepend(`<button class='tabButton'>${roomName}</button>`);
+      $('.tabButton').on('click', function(event) {
+        Messages.onClick(event.currentTarget.firstChild.nodeValue);
+      });
+      Messages.updateToRoom(roomName);
+    }
+  },
+
+  onClick: function(text) {
+    // MessagesView.newTab(event.target);
+    event.preventDefault();
+    $(`div:contains(${Rooms._selectedRoom})`).removeClass('active');
+    $(`div:contains(${text})`).addClass('active');
+    Rooms._selectedRoom = text;
+    Messages.newTab(Rooms._selectedRoom);
     MessagesView.render();
   },
 
-  updateToRoom: function(data) {
-    Messages._data = data;
-  },
 };
 /*
 campus: "rfp"

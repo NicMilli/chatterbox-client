@@ -13,20 +13,17 @@ var FormView = {
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
-    if (Rooms._selectedRoom === undefined || Rooms._selectedRoom === 'All rooms'
-    || Rooms._selectedRoom === null) {
+    if (Rooms._selectedRoom === undefined || Rooms._selectedRoom === 'All rooms') {
       alert('Please select a room to post to, or create your own!');
     } else {
       if ($('#message').val().length === 0) {
         return alert('Please type a message first!');
       }
-      Parse.create({roomname: Rooms._selectedRoom, text: $('#message').val(), username: App.username});
+      Parse.create({roomname: Rooms._selectedRoom, text: $('#message').val(), username: App.username}, () => {
+        Messages.updateToRoom();
+      });
     }
     $('#message').val('');
-
-    App.fetch();
-
-    console.log('click!');
   },
 
   setStatus: function(active) {

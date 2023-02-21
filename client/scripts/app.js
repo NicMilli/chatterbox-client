@@ -5,6 +5,7 @@
 var App = {
 
   $spinner: $('.spinner img'),
+  $messageSpinner: $('.messageSpinner img'),
 
   username: 'anonymous',
 
@@ -26,26 +27,32 @@ var App = {
   },
 
   fetch: function(callback = ()=>{}) {
-    console.log(Friends._data);
-    $('#chats').empty();
+    //$('#chats').not(':first-child').empty();
     Parse.readAll((data) => {
       // examine the response from the server request:
       console.log(data);
       Messages.update(data);
       Rooms.update();
-
       callback();
     });
 
   },
 
   startSpinner: function() {
-    App.$spinner.show();
+    //App.$spinner.show();
     FormView.setStatus(true);
   },
 
   stopSpinner: function() {
-    App.$spinner.fadeOut('fast');
+    //App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
+  },
+
+  startMessageSpinner: function() {
+    $('#chats').prepend('<div class="messageSpinner"><i class="fa-solid fa-fish fa-lg"></i></div>');
+  },
+
+  stopMessageSpinner: function() {
+    $('.messageSpinner').remove();
   }
 };

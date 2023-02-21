@@ -4,8 +4,9 @@
 
 var Rooms = {
 
-  _data: new Set(),
+  _data: new Set(['All rooms']),
   _selectedRoom: 'All rooms',
+  _tabs: {},
 
   update: function() {
     Messages._data.forEach((object) => {
