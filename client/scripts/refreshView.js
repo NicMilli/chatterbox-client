@@ -7,10 +7,8 @@ var RefreshView = {
   },
 
   onClick: function() {
-    Rooms._data.forEach((room) => {
-      Messages.updateToRoom(room);
-    });
-    MessagesView.render(Messages._roomData[Rooms._selectedRoom]);
+    event.preventDefault();
+    Messages.updateToRoom(Rooms._selectedRoom);
   }
 
 };

@@ -13,7 +13,4 @@ var MessageView = {
       '</div>' +
     '</div>'
   )
-
-
 };
-  //render({username: 'test'})

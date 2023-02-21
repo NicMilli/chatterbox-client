@@ -20,7 +20,7 @@ var Rooms = {
       alert('Please make sure your roomname has 3 or more characters');
     } else {
       Parse.create({roomname: roomName, text: 'Look at my cool new room', username: App.username});
-      App.fetch();
+      Messages.newTab(roomName);
     }
   },
 

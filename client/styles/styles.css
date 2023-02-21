@@ -42,6 +42,10 @@ body {
     background: #779ecb;
 }
 
+.activeTab {
+    background: linear-gradient(140deg, #ff6961, #fac898, #a7c7e7, #779ecb);
+}
+
 #chats {
     width: 500px;
     margin: auto;

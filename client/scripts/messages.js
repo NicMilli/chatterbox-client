@@ -11,7 +11,6 @@ var Messages = {
 
   update: function(data) {
     Messages._data = data;
-
     MessagesView.render(data);
   },
 
@@ -35,6 +34,7 @@ var Messages = {
     } else {
       Messages._tabs[roomName] = Object.keys(Messages._tabs).length - 1;
       $('#tabs').prepend(`<button class='tabButton'>${roomName}</button>`);
+      $(`button:contains(${roomName})`).addClass('activeTab');
       $('.tabButton').on('click', function(event) {
         Messages.onClick(event.currentTarget.firstChild.nodeValue);
       });
@@ -45,8 +45,8 @@ var Messages = {
   onClick: function(text) {
     // MessagesView.newTab(event.target);
     event.preventDefault();
-    $(`div:contains(${Rooms._selectedRoom})`).removeClass('active');
-    $(`div:contains(${text})`).addClass('active');
+    $(`button:contains(${Rooms._selectedRoom})`).removeClass('activeTab');
+    $(`button:contains(${text})`).addClass('activeTab');
     Rooms._selectedRoom = text;
     Messages.newTab(Rooms._selectedRoom);
     MessagesView.render();

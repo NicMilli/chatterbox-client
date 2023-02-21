@@ -13,10 +13,12 @@ var Friends = {
     if (username in Friends._data) {
       localStorage.setItem(`ChatterBox-${username}`, false);
       delete Friends._data[username];
+      alert(`You have succesfully removed ${$(username).text()} as a friend`);
     } else {
       if (username !== App.username) {
         localStorage.setItem(`ChatterBox-${username}`, true);
         Friends._data[username] = true;
+        alert(`You have succesfully added ${username} as a friend`);
       }
     }
   }

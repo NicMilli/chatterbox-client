@@ -15,9 +15,8 @@ var RoomsView = {
     RoomsView.$select.empty();
     Rooms._data.forEach((room, roomname) => {
       RoomsView.renderRoom(roomname);
-      Messages.updateToRoom(roomname);
+      //Messages.updateToRoom(roomname);
     });
-    //RoomsView.$select.prepend('<option selected="selected">All rooms</option>');
   },
 
   renderRoom: function(roomname) {
@@ -26,6 +25,7 @@ var RoomsView = {
 
   handleChange: function(event) {
     event.preventDefault();
+    $(`button:contains(${Rooms._selectedRoom})`).removeClass('activeTab');
     Rooms._selectedRoom = RoomsView.$select.find('option:selected').text();
     Messages.newTab(Rooms._selectedRoom);
     //MessagesView.render();
@@ -34,8 +34,6 @@ var RoomsView = {
   handleClick: function() {
     let roomName = window.prompt('What do you want to name your new room');
     Rooms.add(roomName);
-
-    App.fetch();
   },
 
 
